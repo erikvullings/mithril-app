@@ -16,6 +16,8 @@ const isProduction = !devMode;
 const outputPath = resolve(__dirname, isProduction ? '../server/public' : 'dist');
 const SERVER = process.env.SERVER;
 const publicPath = isProduction ? 'https://github.io/erikvullings/mithril-app' : '';
+const APP_TITLE = 'MITHRIL-APP';
+const APP_DESC = 'APPLICATION_DESCRIPTION';
 
 console.log(
   `Running in ${
@@ -36,18 +38,18 @@ const configuration: Configuration = {
       'process.env.SERVER': isProduction ? `'${publicPath}'` : "'http://localhost:4545'",
     }),
     new HtmlRspackPlugin({
-      title: 'Mithril-App',
+      title: APP_TITLE,
       publicPath,
       scriptLoading: 'defer',
       minify: !devMode,
       favicon: './src/favicon.ico',
       meta: {
         viewport: 'width=device-width, initial-scale=1',
-        'og:title': 'Mithril-App',
-        'og:description': 'Mithril framework application.',
+        'og:title': APP_TITLE,
+        'og:description': APP_DESC,
         'og:url': SERVER || '',
-        'og:site_name': 'Mithril-App',
-        'og:image:alt': 'Mithril-App',
+        'og:site_name': APP_TITLE,
+        'og:image:alt': APP_TITLE,
         'og:image': './src/assets/logo.svg',
         'og:image:type': 'image/svg',
         'og:image:width': '200',
