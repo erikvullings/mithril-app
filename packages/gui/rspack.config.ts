@@ -18,6 +18,7 @@ const SERVER = process.env.SERVER;
 const publicPath = isProduction ? 'https://github.io/erikvullings/mithril-app' : '';
 const APP_TITLE = 'MITHRIL-APP';
 const APP_DESC = 'APPLICATION_DESCRIPTION';
+const APP_PORT = 123456789;
 
 console.log(
   `Running in ${
@@ -31,7 +32,7 @@ const configuration: Configuration = {
     main: './src/app.ts',
   },
   devServer: {
-    port: 8330,
+    port: APP_PORT,
   },
   plugins: [
     new DefinePlugin({
