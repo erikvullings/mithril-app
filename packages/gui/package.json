@@ -1,7 +1,7 @@
 {
-  "name": "mithril-app-gui",
+  "name": "mithril-app",
   "version": "0.0.1",
-  "description": "GUI definition",
+  "description": "APPLICATION_DESCRIPTION",
   "scripts": {
     "clean": "rimraf ./dist",
     "dev": "npm start",
@@ -9,15 +9,6 @@
     "build": "npx rspack build",
     "build:domain": "npm run clean && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/erikvullings/mithril-app.git"
-  },
-  "bugs": {
-    "url": "https://github.com/erikvullings/mithril-app/issues"
-  },
-  "homepage": "https://github.com/erikvullings/mithril-app#readme",
-  "author": "Erik Vullings <erik.vullings@gmail.com>",
   "keywords": [
     "mithril",
     "materialize-css",
