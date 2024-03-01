@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Icon } from 'mithril-materialized';
 import logo from '../assets/logo.svg';
-import { Pages, IPage } from '../models';
+import { Pages, Page } from '../models';
 import { routingSvc } from '../services/routing-service';
 import { APP_TITLE, MeiosisComponent } from '../services';
 import { SideNav, SideNavTrigger } from './ui/sidenav';
@@ -17,7 +17,7 @@ export const Layout: MeiosisComponent = () => {
         .getList()
         .filter((p) => p.id === page)
         .shift();
-      const isActive = (d: IPage) => (page === d.id ? 'active' : undefined);
+      const isActive = (d: Page) => (page === d.id ? 'active' : undefined);
 
       return [
         m('.main', { style: 'overflow-x: hidden' }, [
@@ -48,7 +48,7 @@ export const Layout: MeiosisComponent = () => {
                         d.id !== Pages.LANDING &&
                         ((typeof d.visible === 'boolean' ? d.visible : d.visible(state)) || isActive(d))
                     )
-                    .map((d: IPage) =>
+                    .map((d: Page) =>
                       m('li', { style: 'text-align:center', class: isActive(d) }, [
                         m(
                           'a.primary-text',

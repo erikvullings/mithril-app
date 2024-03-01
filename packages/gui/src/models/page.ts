@@ -13,7 +13,7 @@ export enum Pages {
 
 export type VisibilityResolver = (s: State) => boolean;
 
-export interface IPage {
+export interface Page {
   id: Pages;
   default?: boolean;
   hasNavBar?: boolean;

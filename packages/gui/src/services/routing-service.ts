@@ -1,12 +1,12 @@
 import m, { RouteDefs } from 'mithril';
-import { Pages, IPage } from '../models';
+import { Pages, Page } from '../models';
 import { Layout } from '../components/layout';
 import { AboutPage, HomePage, LandingPage, SettingsPage } from '../components';
 import { t } from './translations';
 import { appActions, cells } from './meiosis';
 
 class RoutingService {
-  private pages!: ReadonlyArray<IPage>;
+  private pages!: ReadonlyArray<Page>;
 
   constructor() {}
 
@@ -55,7 +55,7 @@ class RoutingService {
     return this.pages;
   }
 
-  public setList(list: IPage[]) {
+  public setList(list: Page[]) {
     this.pages = Object.freeze(list);
   }
 
