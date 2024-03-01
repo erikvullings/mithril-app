@@ -2,7 +2,7 @@ import m from 'mithril';
 import { Icon } from 'mithril-materialized';
 import background from '../assets/background.jpg';
 import { MeiosisComponent } from '../services';
-import { Dashboards } from '../models';
+import { Pages } from '../models';
 
 export const LandingPage: MeiosisComponent = () => {
   return {
@@ -11,7 +11,7 @@ export const LandingPage: MeiosisComponent = () => {
         actions: { setPage },
       },
     }) => {
-      setPage(Dashboards.LANDING);
+      setPage(Pages.LANDING);
     },
     view: ({
       attrs: {
@@ -26,7 +26,7 @@ export const LandingPage: MeiosisComponent = () => {
             style: 'position: absolute; width: 100%',
           },
           [
-            m('h3.indigo-text.text-darken-4.bold.hide-on-med-and-down', 'Marsrichting CLAS'),
+            m('h3.indigo-text.text-darken-4.bold.hide-on-med-and-down', 'Introduction'),
             // m('h3.indigo-text.text-darken-4.bold.show-on-medium-and-down', 'PSP'),
             // m('.row', [
             //   m('.col.s12.m6', [

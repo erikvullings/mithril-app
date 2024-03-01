@@ -1,7 +1,7 @@
 import m, { RouteDefs } from 'mithril';
 import { Pages, IPage } from '../models';
 import { Layout } from '../components/layout';
-import { AboutPage, HomePage, SettingsPage } from '../components';
+import { AboutPage, HomePage, LandingPage, SettingsPage } from '../components';
 import { t } from './translations';
 import { appActions, cells } from './meiosis';
 
@@ -12,6 +12,13 @@ class RoutingService {
 
   public init() {
     const routes = [
+      {
+        id: Pages.LANDING,
+        title: t('LANDING', 'TITLE'),
+        route: t('LANDING', 'ROUTE'),
+        visible: false,
+        component: LandingPage,
+      },
       {
         id: Pages.HOME,
         icon: 'home',
