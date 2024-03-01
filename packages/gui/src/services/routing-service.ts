@@ -11,7 +11,7 @@ class RoutingService {
   constructor() {}
 
   public init() {
-    const routes = [
+    const routes: Page[] = [
       {
         id: Pages.LANDING,
         title: t('LANDING', 'TITLE'),
@@ -42,7 +42,7 @@ class RoutingService {
         iconClass: 'blue-text',
         title: t('SETTINGS', 'TITLE'),
         route: t('SETTINGS', 'ROUTE'),
-        visible: true,
+        visible: ({ role }) => role === 'admin',
         component: SettingsPage,
       },
     ];
