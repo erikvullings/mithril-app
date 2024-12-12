@@ -1,57 +1,9 @@
 import translate, { Options, Translate } from 'translate.js';
 import { plural_EN } from 'translate.js/pluralize';
+import { messages, messagesNL } from './lang';
+// import { I18n } from 'mithril-ui-form';
 
 export type Languages = 'nl' | 'en';
-
-export const messages = {
-  HOME: { TITLE: 'home', ROUTE: '/home' },
-  ABOUT: { TITLE: 'About the app', ROUTE: '/about' },
-  SETTINGS: { TITLE: 'Settings', ROUTE: '/settings' },
-  LANDING: { TITLE: 'Introduction', ROUTE: '/' },
-  USER: 'User',
-  EDITOR: 'Editor',
-  ADMIN: 'Administrator',
-  CANCEL: 'Cancel',
-  DELETE: 'Delete',
-  YES: 'Yes',
-  NO: 'No',
-  OK: 'Ok',
-  NAME: 'Name',
-  DESCRIPTION: 'Description',
-  DELETE_ITEM: {
-    TITLE: 'Delete {item}',
-    DESCRIPTION: 'Are you certain you want to delete this {item}. There is no turning back?',
-  },
-  SAVE_BUTTON: {
-    LABEL: 'Save',
-    TOOLTIP: 'Save unsaved changes',
-  },
-};
-
-export const messagesNL: typeof messages = {
-  HOME: { TITLE: 'home', ROUTE: '/home' },
-  ABOUT: { TITLE: 'over de app', ROUTE: '/over' },
-  SETTINGS: { TITLE: 'Instellingen', ROUTE: '/instellingen' },
-  LANDING: { TITLE: 'Introductie', ROUTE: '/' },
-  USER: 'Gebruiker',
-  EDITOR: 'Editor',
-  ADMIN: 'Administrator',
-  CANCEL: 'Afbreken',
-  DELETE: 'Verwijderen',
-  YES: 'Ja',
-  NO: 'Nee',
-  OK: 'Ok',
-  NAME: 'Naam',
-  DESCRIPTION: 'Omschrijving',
-  DELETE_ITEM: {
-    TITLE: 'Verwijder {item}',
-    DESCRIPTION: 'Weet u zeker dat u de {item} wilt verwijderen? Dit kan niet ongedaan gemaakt worden.',
-  },
-  SAVE_BUTTON: {
-    LABEL: 'Opslaan',
-    TOOLTIP: 'Sla aanpassingen op',
-  },
-};
 
 const setGuiLanguage = (language: Languages) => {
   const options = {
@@ -91,21 +43,23 @@ export const i18n = {
   init,
   addOnChangeListener,
   loadAndSetLocale,
-  // i18n: {} as I18n,
-  // } as {
-  //   defaultLocale: Languages;
-  //   currentLocale: Languages;
-  //   locales: Locales;
-  //   t: Translate<typeof messages, Options>;
+  // stemmer: undefined as undefined | LanguageStemmer,
+  stopwords: [] as string[],
 };
 
-export let t: Translate<typeof messages, Options>;
+// export const I18N: I18n = {};
+
+export let t: Translate<typeof messages, Options> = setGuiLanguage(i18n.currentLocale);
+
+// export let stemmer: Stemmer;
+// export let tokenizer = new WordTokenizer();
 
 async function init(locales: Locales, selectedLocale: Languages) {
   i18n.locales = locales;
   const defaultLocale = (Object.keys(locales) as Languages[]).filter((l) => (locales[l] as Locale).default).shift();
   if (defaultLocale) {
     i18n.defaultLocale = defaultLocale || selectedLocale;
+    // i18n.stemmer = new LanguageStemmer(i18n.defaultLocale);
   }
   document.documentElement.setAttribute('lang', selectedLocale);
   await loadAndSetLocale(selectedLocale);
@@ -122,18 +76,18 @@ async function loadAndSetLocale(newLocale: Languages) {
 
   const resolvedLocale = supported(newLocale) ? newLocale : i18n.defaultLocale;
   i18n.currentLocale = resolvedLocale;
+  // i18n.stopwords = newLocale === 'nl' ? stopwordsNl : stopwordsEn;
+  // stemmer = newLocale === 'nl' ? PorterStemmerNl : PorterStemmer;
   t = setGuiLanguage(newLocale);
-  // i18n.i18n = {
-  //   editRepeat: t('i18n', 'editRepeat'),
-  //   createRepeat: t('i18n', 'createRepeat'),
-  //   deleteItem: t('i18n', 'deleteItem'),
-  //   agree: t('i18n', 'agree'),
-  //   disagree: t('i18n', 'disagree'),
-  //   pickOne: t('i18n', 'pickOne'),
-  //   pickOneOrMore: t('i18n', 'pickOneOrMore'),
-  //   cancel: t('i18n', 'cancel'),
-  //   save: t('i18n', 'save'),
-  // } as I18n;
+  // I18N.agree = t('I18n', 'agree');
+  // I18N.disagree = t('I18n', 'disagree');
+  // I18N.cancel = t('I18n', 'cancel');
+  // I18N.save = t('I18n', 'save');
+  // I18N.editRepeat = t('I18n', 'editRepeat');
+  // I18N.createRepeat = t('I18n', 'createRepeat');
+  // I18N.deleteItem = t('I18n', 'deleteItem');
+  // I18N.pickOne = t('I18n', 'pickOne');
+  // I18N.pickOneOrMore = t('I18n', 'pickOneOrMore');
   onChangeLocale.forEach((listener) => listener(i18n.currentLocale, dir()));
 }
 

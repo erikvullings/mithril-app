@@ -1,4 +1,5 @@
 import { padLeft } from 'mithril-materialized';
+import { Page, Pages } from '../models';
 
 export const LANGUAGE = 'SG_LANGUAGE';
 export const SAVED = 'SG_MODEL_SAVED';
@@ -185,4 +186,18 @@ export const scrollToTop = (): void => {
     top: 0,
     behavior: 'smooth',
   });
+};
+
+export const isActivePage = (page: Pages) => (d: Page) => page === d.id ? 'active' : undefined;
+
+/**
+ * Determines whether the current page is considered small based on the width of the window.
+ * @returns A boolean indicating whether the current page is small.
+ */
+export const isSmallPage = (): boolean => {
+  const width = window.innerWidth;
+
+  // Materialize medium size range: 601px - 992px
+  return width < 601;
+  // && width <= 992;
 };

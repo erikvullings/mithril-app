@@ -3,21 +3,38 @@ import { Icon } from 'mithril-materialized';
 import logo from '../assets/logo.svg';
 import { Pages, Page } from '../models';
 import { routingSvc } from '../services/routing-service';
-import { APP_TITLE, MeiosisComponent } from '../services';
+import { APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
 import { SideNav, SideNavTrigger } from './ui/sidenav';
+import { TextInputWithClear } from './ui/text-input-with-clear';
+import { isActivePage, isSmallPage } from '../utils';
 
 export const Layout: MeiosisComponent = () => {
   const style = 'font-size: 2.2rem; width: 4rem;';
+  let searchDialog: M.Modal;
+  let textInput: HTMLInputElement;
+
+  document.addEventListener('keydown', (ev: KeyboardEvent) => {
+    if (
+      ev.key !== '/' ||
+      searchDialog?.isOpen ||
+      (ev.target && (ev.target as HTMLTextAreaElement).type === 'textarea') ||
+      (ev.target as HTMLInputElement).type === 'text'
+    )
+      return;
+    ev.preventDefault(); // Prevent the slash key from being inputted into input fields
+    searchDialog.open();
+    textInput.focus();
+  });
 
   return {
     view: ({ children, attrs: { state, actions } }) => {
-      const { page } = state;
-      const { changePage } = actions;
+      const { page, searchFilter, searchResults } = state;
+      const { changePage, setSearchFilter } = actions;
       const curPage = routingSvc
         .getList()
         .filter((p) => p.id === page)
         .shift();
-      const isActive = (d: Page) => (page === d.id ? 'active' : undefined);
+      const isActive = isActivePage(page);
 
       return [
         m('.main', { style: 'overflow-x: hidden' }, [
@@ -28,19 +45,51 @@ export const Layout: MeiosisComponent = () => {
               'nav',
               m('.nav-wrapper', [
                 m(
-                  'a.brand-logo.hide-on-med-and-down[title=landing page]',
+                  'a.brand-logo.hide-on-med-and-down',
                   {
-                    style: 'margin-left: 20px; color: black;',
+                    title: APP_TITLE,
+                    style: 'margin-left: 20px; color: black; height: 50%',
                     href: routingSvc.href(Pages.LANDING),
                   },
                   [
-                    m(`img[width=50][height=50][src=${logo}][alt=logo]`, {
-                      style: 'margin-top: 5px; margin-left: -5px;',
+                    m('img[width=50][height=50][alt=logo]', {
+                      src: logo,
+                      style: 'margin: 6px -6px;',
                     }),
                     m('span', { style: 'margin-left: 20px; vertical-align: top;' }, APP_TITLE),
                   ]
                 ),
+                m(
+                  'a.brand-logo.show-on-small',
+                  {
+                    title: APP_TITLE_SHORT,
+                    style: 'margin-left: 20px; color: black; height: 50%',
+                    href: routingSvc.href(Pages.LANDING),
+                  },
+                  [
+                    m('img[width=50][height=50][alt=logo]', {
+                      src: logo,
+                      style: 'margin: 6px -6px;',
+                    }),
+                    m('span', { style: 'margin-left: 20px; vertical-align: top;' }, APP_TITLE_SHORT),
+                  ]
+                ),
+
                 m('ul.right.hide-on-med-and-down', [
+                  m('li.tooltip.cursor-pointer', [
+                    m(Icon, {
+                      iconName: 'search',
+                      style: {
+                        'margin-right': '15px',
+                        'font-size': '2rem',
+                      },
+                      onclick: (e: MouseEvent) => {
+                        e.preventDefault();
+                        searchDialog && !searchDialog.isOpen && searchDialog.open();
+                      },
+                    }),
+                    m('span.tooltiptext', { style: { 'font-size': '1rem' } }, t('SEARCH_TOOLTIP')),
+                  ]),
                   ...routingSvc
                     .getList()
                     .filter(
@@ -69,8 +118,68 @@ export const Layout: MeiosisComponent = () => {
               ])
             )
           ),
-          curPage && curPage.hasSidebar && [m(SideNavTrigger, {}), m(SideNav, { state, actions })],
-          m('.container', { style: 'padding-top: 1rem' }, children),
+          (isSmallPage() || (curPage && curPage.hasSidebar)) && [
+            m(SideNavTrigger, { state, actions }),
+            m(SideNav, { state, actions }),
+          ],
+          m(
+            '#searchDialog.modal',
+            {
+              oncreate: ({ dom }) => {
+                searchDialog = M.Modal.init(dom, {
+                  onOpenEnd: () => {
+                    if (textInput) {
+                      textInput.focus();
+                    }
+                  },
+                });
+              },
+            },
+            [
+              m('.modal-content.row', [
+                m(TextInputWithClear, {
+                  id: 'search',
+                  label: t('SEARCH'),
+                  onchange: () => {},
+                  iconName: 'search',
+                  initialValue: searchFilter,
+                  oninput: (v) => {
+                    setSearchFilter(v);
+                  },
+                  oncreate: ({ dom }) => (textInput = dom.querySelector('input') as HTMLInputElement),
+                }),
+                searchDialog &&
+                  searchDialog.isOpen &&
+                  searchFilter &&
+                  searchResults && [[m('pre', t('HITS', searchResults.length))], searchResults.length > 0 && []],
+              ]),
+            ]
+          ),
+          m(
+            '.container',
+            { style: 'padding-top: 5px' },
+            children,
+            m(
+              '.row',
+              m(
+                '.col.s12',
+                m(
+                  'a',
+                  {
+                    href: 'https://github.com/erikvullings',
+                    target: '_blank',
+                    // style: {
+                    //   position: 'fixed',
+                    //   bottom: '0',
+                    //   right: '10px',
+                    // },
+                  },
+                  m('img[width=100][height=50][alt=LOGO][title=LOGO].right', { src: logo })
+                )
+              )
+            )
+          ),
+          ,
         ]),
       ];
     },

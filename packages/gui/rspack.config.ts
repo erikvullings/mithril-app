@@ -5,16 +5,16 @@ import {
   DefinePlugin,
   HtmlRspackPlugin,
   HotModuleReplacementPlugin,
-  SwcCssMinimizerRspackPlugin,
   SwcJsMinimizerRspackPlugin,
+  LightningCssMinimizerRspackPlugin,
 } from '@rspack/core';
 
 config();
 
 const devMode = (process.env as any).NODE_ENV === 'development';
 const isProduction = !devMode;
-const outputPath = resolve(__dirname, isProduction ? '../server/public' : 'dist');
-const SERVER = process.env.SERVER;
+const outputPath = resolve(__dirname, isProduction ? '../../docs' : 'dist');
+const SERVER = process.env.SERVER || 'localhost';
 const publicPath = isProduction ? 'https://github.io/erikvullings/mithril-app' : '';
 const APP_TITLE = 'MITHRIL-APP';
 const APP_DESC = 'APPLICATION_DESCRIPTION';
@@ -27,6 +27,10 @@ console.log(
 );
 
 const configuration: Configuration = {
+  experiments: {
+    css: true,
+    asyncWebAssembly: true,
+  },
   mode: isProduction ? 'production' : 'development',
   entry: {
     main: './src/app.ts',
@@ -36,7 +40,7 @@ const configuration: Configuration = {
   },
   plugins: [
     new DefinePlugin({
-      'process.env.SERVER': isProduction ? `'${publicPath}'` : "'http://localhost:4545'",
+      'process.env.SERVER': isProduction ? `'${publicPath}'` : '`http://localhost:${APP_PORT}`',
     }),
     new HtmlRspackPlugin({
       title: APP_TITLE,
@@ -58,10 +62,15 @@ const configuration: Configuration = {
       },
     }),
     new HotModuleReplacementPlugin(),
-    new SwcCssMinimizerRspackPlugin(),
+    new LightningCssMinimizerRspackPlugin(),
     new SwcJsMinimizerRspackPlugin({
-      compress: !devMode,
-      mangle: !devMode,
+      minimizerOptions: devMode
+        ? {}
+        : {
+            compress: true,
+            minify: true,
+            // mangle: true,
+          },
     }),
   ],
   resolve: {

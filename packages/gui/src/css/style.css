@@ -52,18 +52,6 @@ a {
   color: #2b36aa;
 }
 
-.markdown ul {
-  padding-left: 20px;
-}
-.markdown ul > li {
-  padding-left: 20px;
-  list-style-type: disc;
-}
-.leaflet-top,
-.leaflet-bottom {
-  z-index: 950;
-}
-
 /* styles for '...' */
 .block-with-text {
   /* hide text if it more than N lines  */
@@ -167,23 +155,6 @@ ul.menu-buttons > li {
 }
 ul.menu-buttons > li > a {
   width: 100%;
-}
-ul.questionnaire-nav {
-  width: 100%;
-  text-align: center;
-}
-ul.questionnaire-nav > li {
-  margin: 0 10px;
-}
-ul.questionnaire-nav > li > a {
-  width: 25%;
-}
-.markdown p {
-  color: black;
-  font-weight: normal;
-}
-.markdown.squeeze p {
-  margin: 0;
 }
 
 .repeat-list .pagination {
@@ -295,15 +266,6 @@ li.collection-item:first-child {
 }
 .materialbox-overlay {
   z-index: 2000;
-}
-.incident-view .leaflet-container {
-  height: 200px !important;
-}
-#map-page .leaflet-container {
-  width: 100vw;
-  margin-left: -130px;
-  margin-bottom: -65px;
-  height: 91vh !important;
 }
 
 .material-icons.hoverable {
@@ -465,19 +427,6 @@ img.thumbnail {
   width: 250px;
 }
 
-ul.person-details > li > i.material-icons {
-  vertical-align: middle;
-  margin: 3px 10px 3px 0;
-}
-
-ul.projects > li {
-  margin: 4px 0;
-}
-
-ul.projects > li > span.project-id {
-  margin-right: 5px;
-}
-
 .collapsible > li:first-child .collapsible-header span.badge {
   margin-left: 10px;
 }
@@ -504,28 +453,6 @@ ul.projects > li > span.project-id {
 
 .margins {
   margin: 10px;
-}
-
-.overview .capability {
-  margin-right: 2rem;
-  display: flex;
-  width: 100%;
-  white-space: nowrap;
-}
-.overview .capability .name {
-  flex-grow: 1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.overview .square {
-  flex: 0 0 20px;
-  height: 20px;
-  width: 20px;
-  background-color: #555;
-  border: solid black 2px;
-  margin-top: 5px;
-  margin-right: 8px;
 }
 
 .page .row {
@@ -610,63 +537,6 @@ a.waves-effect.waves-teal.btn-flat.selected {
   pointer-events: none;
 }
 
-.kanban {
-  display: flex;
-  flex-flow: row wrap;
-  /* justify-content: auto; */
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.kanban-row {
-  /* background-color: lightblue; */
-  display: flex;
-  flex-flow: column nowrap;
-  padding: 0;
-  margin-top: 10px;
-  list-style: none;
-  height: 100%;
-  width: 210px;
-}
-.kanban-header {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.kanban-item {
-  padding: 0px;
-  min-width: 200px;
-  width: 200px;
-  height: 60px;
-  margin: 0 0 0.7rem 0;
-  color: white;
-  text-align: center;
-
-  & .card-content {
-    font-size: 0.8rem;
-    padding: 15px 10px;
-    & > .card-title {
-      margin-bottom: 0;
-    }
-  }
-  & .card-desc {
-    display: none;
-    font-size: 0.9rem;
-    padding: 4px;
-    transition-delay: 4s;
-    text-align: left;
-    white-space: normal;
-    word-wrap: break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  &:hover .card-desc {
-    display: block;
-    transition-delay: 4s;
-  }
-}
 .title {
   font-size: 1.25rem;
   font-weight: 500;
@@ -703,56 +573,20 @@ a.waves-effect.waves-teal.btn-flat.selected {
   top: 4px;
   right: 35px;
 }
-ul.kanban > li {
-  margin-bottom: 10px;
-}
-.inconsistencies-settings {
-  height: 90vh;
-}
-.show-scenario,
-.create-scenario {
-  padding-top: 1rem;
-  height: calc(100vh - 84px);
-}
-.create-scenario .row {
-  margin-bottom: 0;
-}
-#editor {
-  min-height: 150px;
-}
-.scenario-table .input-field {
-  margin-bottom: 0;
-}
-.scenario-table .material-icons {
-  margin-top: 1.6rem;
-  margin-left: 5px;
-}
-.scenario-table .icons {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: right;
-  align-items: flex-start;
-}
-.narratives {
-  border: solid #dbe2e0;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
-}
 
-.popupContainer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #fcffa5;
-  font-size: 2rem;
-  box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.3);
-  /* display: none; Hide the popup by default */
+.markdown ul {
+  padding-left: 20px;
 }
-
-.popupContainer > .popupContent {
-  padding: 20px;
+.markdown ul > li {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+.markdown p {
+  color: black;
+  font-weight: normal;
+}
+.markdown.squeeze p {
+  margin: 0;
 }
 
 .markdown h1 {
@@ -776,11 +610,6 @@ ul.kanban > li {
   font-size: 1.2em;
 }
 
-#toc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .markdown h6 {
   font-size: 1em;
 }

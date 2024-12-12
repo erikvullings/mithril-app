@@ -25,45 +25,7 @@ export const LandingPage: MeiosisComponent = () => {
           {
             style: 'position: absolute; width: 100%',
           },
-          [
-            m('h3.indigo-text.text-darken-4.bold.hide-on-med-and-down', 'Introduction'),
-            // m('h3.indigo-text.text-darken-4.bold.show-on-medium-and-down', 'PSP'),
-            // m('.row', [
-            //   m('.col.s12.m6', [
-            //     m('.card white darken-2', [
-            //       m('.card-content', [
-            //         m('.card-title', 'Voor professionals:'),
-            //         m(
-            //           'p.left-align',
-            //           m('ul', [
-            //             m(
-            //               'li',
-            //               m(FlatButton, {
-            //                 iconName: 'arrow_right',
-            //                 label: 'Meld mij aan',
-            //                 modalId: 'createAccount',
-            //               })
-            //             ),
-            //             m(
-            //               'li',
-            //               m(FlatButton, {
-            //                 iconName: 'arrow_right',
-            //                 label: 'Bekijk bestaande contracten',
-            //                 onclick: () => {
-            //                   const id = uuid4();
-            //                   routingSvc.switchTo(Dashboards.CONTRACTS, {
-            //                     id,
-            //                   });
-            //                 },
-            //               })
-            //             ),
-            //           ])
-            //         ),
-            //       ]),
-            //     ]),
-            //   ]),
-            // ]),
-          ]
+          [m('h3.indigo-text.text-darken-4.bold.hide-on-med-and-down', 'Introduction')]
         ),
         m('img.responsive-img.center', { src: background }),
         // m('.buttons.center', { style: 'margin: 10px auto;' }, []),
