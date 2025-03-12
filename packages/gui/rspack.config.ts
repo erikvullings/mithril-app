@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 import { resolve } from 'path';
-import { Configuration } from '@rspack/cli';
 import {
+  type Configuration,
   DefinePlugin,
   HtmlRspackPlugin,
   HotModuleReplacementPlugin,
@@ -13,7 +13,7 @@ config();
 
 const devMode = (process.env as any).NODE_ENV === 'development';
 const isProduction = !devMode;
-const outputPath = resolve(__dirname, isProduction ? '../../docs' : 'dist');
+const outputPath = resolve(process.cwd(), isProduction ? '../../docs' : 'dist');
 const SERVER = process.env.SERVER || 'localhost';
 const publicPath = isProduction ? 'https://github.io/erikvullings/mithril-app' : '';
 const APP_TITLE = 'MITHRIL-APP';

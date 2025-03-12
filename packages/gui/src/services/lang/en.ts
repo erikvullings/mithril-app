@@ -34,4 +34,5 @@ export const messages = {
   TITLE: 'Title',
   AUTHORS: 'Authors',
   TYPE: 'Type',
+  HITS: 'Hits',
 };
