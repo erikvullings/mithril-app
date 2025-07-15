@@ -32,6 +32,7 @@ const configuration: Configuration = {
     asyncWebAssembly: true,
   },
   mode: isProduction ? 'production' : 'development',
+  devtool: isProduction ? 'source-map' : 'eval-cheap-module-source-map',
   entry: {
     main: './src/app.ts',
   },
