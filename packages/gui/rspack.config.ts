@@ -7,6 +7,7 @@ import {
   HotModuleReplacementPlugin,
   SwcJsMinimizerRspackPlugin,
   LightningCssMinimizerRspackPlugin,
+  SourceMapDevToolPlugin,
 } from '@rspack/core';
 
 config();
@@ -39,6 +40,10 @@ const configuration: Configuration = {
     port: APP_PORT,
   },
   plugins: [
+    new SourceMapDevToolPlugin({
+      test: /\.ts$/,
+      filename: '[file].map[query]',
+    }),
     new DefinePlugin({
       'process.env.SERVER': isProduction ? `'${publicPath}'` : '`http://localhost:${APP_PORT}`',
     }),
@@ -64,13 +69,11 @@ const configuration: Configuration = {
     new HotModuleReplacementPlugin(),
     new LightningCssMinimizerRspackPlugin(),
     new SwcJsMinimizerRspackPlugin({
-      minimizerOptions: devMode
-        ? {}
-        : {
-            compress: true,
-            minify: true,
-            // mangle: true,
-          },
+      minimizerOptions: {
+        compress: isProduction,
+        minify: isProduction,
+        mangle: isProduction,
+      },
     }),
   ],
   resolve: {
@@ -78,12 +81,17 @@ const configuration: Configuration = {
   },
   module: {
     rules: [
+      // CSS rule for all CSS files
+      {
+        test: /\.css$/,
+        type: 'css',
+        sideEffects: true,
+      },
       {
         test: /\.ts$/,
         exclude: [/node_modules/],
         loader: 'builtin:swc-loader',
         options: {
-          sourceMap: true,
           jsc: {
             parser: {
               syntax: 'typescript',
@@ -122,6 +130,10 @@ const configuration: Configuration = {
         type: 'css', // This is must, which tells rspack this is type of css resources
       },
     ],
+  },
+  optimization: {
+    minimize: isProduction,
+    minimizer: [],
   },
   output: {
     filename: '[id].bundle.js',

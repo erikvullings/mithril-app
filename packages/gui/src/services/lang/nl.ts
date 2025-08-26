@@ -36,5 +36,7 @@ export const messagesNL: typeof messages = {
   AUTHORS: 'Auteurs',
   LINK: 'Link',
   TYPE: 'Type',
-  HITS: 'Hits',
+  HITS: {
+    n: '{n} Hits',
+  },
 };

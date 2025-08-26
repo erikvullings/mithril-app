@@ -3,7 +3,7 @@ import { Pages, Page } from '../models';
 import { Layout } from '../components/layout';
 import { AboutPage, HomePage, LandingPage, SettingsPage } from '../components';
 import { t } from './translations';
-import { appActions, cells } from './meiosis';
+import { cells } from './meiosis';
 
 class RoutingService {
   private pages!: ReadonlyArray<Page>;
@@ -97,8 +97,7 @@ class RoutingService {
           ? {
               render: () => {
                 const cell = cells();
-                const actions = appActions(cell);
-                return m(c.component, { ...cell, actions });
+                return m(c.component, { cell });
               },
             }
           : {
@@ -110,8 +109,7 @@ class RoutingService {
               //       },
               render: () => {
                 const cell = cells();
-                const actions = appActions(cell);
-                return m(Layout, { ...cell, actions, options: {} }, m(c.component, { ...cell, actions }));
+                return m(Layout, { ...cell }, m(c.component, { ...cell }));
               },
             };
       return p;

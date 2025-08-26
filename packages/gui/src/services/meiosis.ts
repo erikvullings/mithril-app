@@ -2,9 +2,15 @@ import { meiosisSetup } from 'meiosis-setup';
 import { MeiosisCell, MeiosisConfig, Service } from 'meiosis-setup/types';
 import m, { FactoryComponent } from 'mithril';
 import { routingSvc } from '.';
-import { DataModel, EmptyDataModel, Pages, Settings } from '../models';
+import { DataModel, Pages, Settings } from '../models';
 import { User, UserRole } from './login-service';
 import { scrollToTop } from '../utils';
+
+export const EmptyDataModel = () =>
+  ({
+    version: 1,
+    lastUpdate: Date.now(),
+  } as DataModel);
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const MODEL_KEY = 'MITHRIL_APP_MODEL';
@@ -36,59 +42,60 @@ export interface Actions {
   login: () => void;
 }
 
-export type MeiosisComponent<T extends { [key: string]: any } = {}> = FactoryComponent<{
-  state: State;
-  actions: Actions;
-  options?: T;
-}>;
+export type MeiosisComponent = FactoryComponent<MeiosisCell<State>>;
 
-export const appActions: (cell: MeiosisCell<State>) => Actions = ({ update /* states */ }) => ({
+export const actions = {
   // addDucks: (cell, amount) => {
   //   cell.update({ ducks: (value) => value + amount });
   // },
-  setPage: (page, info) => {
+  setPage: (cell: MeiosisCell<State>, page: Pages, info?: string) => {
     document.title = `${APP_TITLE} | ${page.replace('_', ' ')}${info ? ` | ${info}` : ''}`;
     // const curPage = states().page;
     // if (curPage === page) return;
-    update({
+    cell.update({
       page: () => {
         scrollToTop();
         return page;
       },
     });
   },
-  changePage: (page, params, query) => {
+  changePage: (
+    cell: MeiosisCell<State>,
+    page: Pages,
+    params?: Record<string, string | number | undefined>,
+    query?: Record<string, string | number | undefined>
+  ) => {
     routingSvc && routingSvc.switchTo(page, params, query);
     document.title = `${APP_TITLE} | ${page.replace('_', ' ')}`;
-    update({ page });
+    cell.update({ page });
   },
-  saveModel: (model) => {
+  saveModel: (cell: MeiosisCell<State>, model: DataModel) => {
     model.lastUpdate = Date.now();
     model.version = model.version ? model.version++ : 1;
     localStorage.setItem(MODEL_KEY, JSON.stringify(model));
     console.log(JSON.stringify(model, null, 2));
-    update({ model: () => model });
+    cell.update({ model: () => model });
   },
-  saveSettings: async (settings: Settings) => {
+  saveSettings: async (cell: MeiosisCell<State>, settings: Settings) => {
     // await settingsSvc.save(settings);
-    update({
+    cell.update({
       settings: () => settings,
     });
   },
-  setSearchFilter: async (searchFilter?: string) => {
+  setSearchFilter: async (cell: MeiosisCell<State>, searchFilter?: string) => {
     if (searchFilter) {
       // localStorage.setItem(SEARCH_FILTER_KEY, searchFilter);
-      update({ searchFilter });
+      cell.update({ searchFilter });
     } else {
-      update({ searchFilter: undefined });
+      cell.update({ searchFilter: undefined });
     }
   },
-  setRole: (role) => {
+  setRole: (cell: MeiosisCell<State>, role: UserRole) => {
     localStorage.setItem(USER_ROLE, role);
-    update({ role });
+    cell.update({ role });
   },
-  login: () => {},
-});
+  login: (_cell: MeiosisCell<State>) => {},
+};
 
 export const setSearchResults: Service<State> = {
   onchange: (state) => state.searchFilter,

@@ -1,35 +1,34 @@
 import m from 'mithril';
-import { Icon } from 'mithril-materialized';
+import { Icon, ThemeToggle, ModalPanel, FlatButton, TextInput, Sidenav, SidenavItem } from 'mithril-materialized';
 import logo from '../assets/logo.svg';
 import { Pages, Page } from '../models';
 import { routingSvc } from '../services/routing-service';
-import { APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
-import { SideNav, SideNavTrigger } from './ui/sidenav';
-import { TextInputWithClear } from './ui/text-input-with-clear';
+import { actions, APP_TITLE, APP_TITLE_SHORT, MeiosisComponent, t } from '../services';
 import { isActivePage, isSmallPage } from '../utils';
 
 export const Layout: MeiosisComponent = () => {
+  let searchDialogOpen = false;
+  let sidenavOpen = false;
   const style = 'font-size: 2.2rem; width: 4rem;';
-  let searchDialog: M.Modal;
+  // let searchDialog: ModalPanel;
   let textInput: HTMLInputElement;
 
   document.addEventListener('keydown', (ev: KeyboardEvent) => {
     if (
       ev.key !== '/' ||
-      searchDialog?.isOpen ||
+      // searchDialog?.isOpen ||
       (ev.target && (ev.target as HTMLTextAreaElement).type === 'textarea') ||
       (ev.target as HTMLInputElement).type === 'text'
     )
       return;
     ev.preventDefault(); // Prevent the slash key from being inputted into input fields
-    searchDialog.open();
+    searchDialogOpen = true;
     textInput.focus();
   });
 
   return {
-    view: ({ children, attrs: { state, actions } }) => {
-      const { page, searchFilter, searchResults } = state;
-      const { changePage, setSearchFilter } = actions;
+    view: ({ children, attrs }) => {
+      const { page, searchFilter, searchResults } = attrs.state;
       const curPage = routingSvc
         .getList()
         .filter((p) => p.id === page)
@@ -40,7 +39,6 @@ export const Layout: MeiosisComponent = () => {
         m('.main', { style: 'overflow-x: hidden' }, [
           m(
             '.navbar-fixed',
-            { style: 'z-index: 1001' },
             m(
               'nav',
               m('.nav-wrapper', [
@@ -63,7 +61,7 @@ export const Layout: MeiosisComponent = () => {
                   'a.brand-logo.show-on-small',
                   {
                     title: APP_TITLE_SHORT,
-                    style: 'margin-left: 20px; color: black; height: 50%',
+                    style: 'margin-left: 20px; height: 50%',
                     href: routingSvc.href(Pages.LANDING),
                   },
                   [
@@ -77,25 +75,21 @@ export const Layout: MeiosisComponent = () => {
 
                 m('ul.right.hide-on-med-and-down', [
                   m('li.tooltip.cursor-pointer', [
-                    m(Icon, {
+                    m(FlatButton, {
                       iconName: 'search',
-                      style: {
-                        'margin-right': '15px',
-                        'font-size': '2rem',
+                      variant: { type: 'modal', modalId: 'search-dialog' },
+                      onclick: () => {
+                        searchDialogOpen = true;
                       },
-                      onclick: (e: MouseEvent) => {
-                        e.preventDefault();
-                        searchDialog && !searchDialog.isOpen && searchDialog.open();
-                      },
+                      tooltip: t('SEARCH_TOOLTIP'),
                     }),
-                    m('span.tooltiptext', { style: { 'font-size': '1rem' } }, t('SEARCH_TOOLTIP')),
                   ]),
                   ...routingSvc
                     .getList()
                     .filter(
                       (d) =>
                         d.id !== Pages.LANDING &&
-                        ((typeof d.visible === 'boolean' ? d.visible : d.visible(state)) || isActive(d))
+                        ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.state)) || isActive(d))
                     )
                     .map((d: Page) =>
                       m('li', { style: 'text-align:center', class: isActive(d) }, [
@@ -104,7 +98,7 @@ export const Layout: MeiosisComponent = () => {
                           {
                             title: d.title,
                             href: routingSvc.href(d.id),
-                            onclick: () => changePage(d.id),
+                            onclick: () => actions.changePage(attrs, d.id),
                           },
                           m(Icon, {
                             className: d.iconClass ? ` ${d.iconClass}` : '',
@@ -114,72 +108,91 @@ export const Layout: MeiosisComponent = () => {
                         ),
                       ])
                     ),
+                  m(ThemeToggle),
                 ]),
               ])
             )
           ),
           (isSmallPage() || (curPage && curPage.hasSidebar)) && [
-            m(SideNavTrigger, { state, actions }),
-            m(SideNav, { state, actions }),
+            m(FlatButton, {
+              iconName: 'menu',
+              onclick: () => (sidenavOpen = !sidenavOpen),
+            }),
           ],
           m(
-            '#searchDialog.modal',
+            Sidenav,
             {
-              oncreate: ({ dom }) => {
-                searchDialog = M.Modal.init(dom, {
-                  onOpenEnd: () => {
-                    if (textInput) {
-                      textInput.focus();
-                    }
-                  },
-                });
+              isOpen: sidenavOpen,
+              onToggle: (open) => {
+                sidenavOpen = open;
               },
+              position: 'left', // 'left' | 'right'
+              mode: 'overlay', // 'overlay' | 'push'
+              width: 300,
+              showBackdrop: true,
+              closeOnBackdropClick: true,
+              closeOnEscape: true,
             },
-            [
-              m('.modal-content.row', [
-                m(TextInputWithClear, {
-                  id: 'search',
-                  label: t('SEARCH'),
-                  onchange: () => {},
-                  iconName: 'search',
-                  initialValue: searchFilter,
-                  oninput: (v) => {
-                    setSearchFilter(v);
-                  },
-                  oncreate: ({ dom }) => (textInput = dom.querySelector('input') as HTMLInputElement),
-                }),
-                searchDialog &&
-                  searchDialog.isOpen &&
-                  searchFilter &&
-                  searchResults && [[m('pre', t('HITS', searchResults.length))], searchResults.length > 0 && []],
-              ]),
-            ]
+            routingSvc
+              .getList()
+              .filter(
+                (d) =>
+                  d.id !== Pages.LANDING &&
+                  ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.state)) || isActive(d))
+              )
+              .map(
+                (d: Page) =>
+                  m(SidenavItem, {
+                    text: d.title,
+                    icon: typeof d.icon === 'string' ? d.icon : d.icon ? d.icon() : '',
+                    active: curPage?.id === d.id,
+                  })
+                // { style: 'text-align:center', class: isActive(d) }, [
+                // m(
+                //   'a.primary-text',
+                //   {
+                //     title: d.title,
+                //     href: routingSvc.href(d.id),
+                //     onclick: () => actions.changePage(attrs, d.id),
+                //   },
+                //   m(Icon, {
+                //     className: d.iconClass ? ` ${d.iconClass}` : '',
+                //     style,
+                //     iconName: typeof d.icon === 'string' ? d.icon : d.icon ? d.icon() : '',
+                //   })
+                // ),
+              )
           ),
           m(
             '.container',
             { style: 'padding-top: 5px' },
             children,
-            m(
-              '.row',
-              m(
-                '.col.s12',
-                m(
-                  'a',
-                  {
-                    href: 'https://github.com/erikvullings',
-                    target: '_blank',
-                    // style: {
-                    //   position: 'fixed',
-                    //   bottom: '0',
-                    //   right: '10px',
-                    // },
+            m(ModalPanel, {
+              id: 'search-dialog',
+              title: t('SEARCH'),
+              isOpen: searchDialogOpen,
+              onToggle: (open) => {
+                searchDialogOpen = open;
+              },
+              description: m('.modal-content.row', [
+                m(TextInput, {
+                  id: 'search',
+                  label: t('SEARCH'),
+                  iconName: 'search',
+                  initialValue: searchFilter,
+                  onchange: (v) => {
+                    actions.setSearchFilter(attrs, v);
                   },
-                  m('img[width=100][height=50][alt=LOGO][title=LOGO].right', { src: logo })
-                )
-              )
-            )
+                  oncreate: ({ dom }) => (textInput = dom.querySelector('input') as HTMLInputElement),
+                }),
+                searchFilter &&
+                  searchResults && [
+                    m('pre.col.s12', t('HITS', searchResults.length || 0)),
+                    searchResults.length > 0 && [],
+                  ],
+              ]),
+            })
           ),
-          ,
         ]),
       ];
     },
