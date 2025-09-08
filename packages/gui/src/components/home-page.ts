@@ -5,7 +5,7 @@ import { actions } from '../services/meiosis';
 
 export const HomePage: MeiosisComponent = () => {
   return {
-    oninit: ({ attrs }) => actions.setPage(attrs, Pages.HOME),
+    oninit: ({ attrs }) => actions.setPage(attrs.cell, Pages.HOME),
     view: () => {
       return [m('#home-page.row.home.page', 'HOME-PAGE')];
     },

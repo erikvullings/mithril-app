@@ -42,7 +42,7 @@ export interface Actions {
   login: () => void;
 }
 
-export type MeiosisComponent = FactoryComponent<MeiosisCell<State>>;
+export type MeiosisComponent<A = {}> = FactoryComponent<{ cell: MeiosisCell<State> } & A>;
 
 export const actions = {
   // addDucks: (cell, amount) => {

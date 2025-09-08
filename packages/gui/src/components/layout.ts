@@ -10,25 +10,24 @@ export const Layout: MeiosisComponent = () => {
   let searchDialogOpen = false;
   let sidenavOpen = false;
   const style = 'font-size: 2.2rem; width: 4rem;';
-  // let searchDialog: ModalPanel;
-  let textInput: HTMLInputElement;
 
   document.addEventListener('keydown', (ev: KeyboardEvent) => {
+    console.log({ searchDialogOpen });
     if (
       ev.key !== '/' ||
-      // searchDialog?.isOpen ||
+      searchDialogOpen ||
       (ev.target && (ev.target as HTMLTextAreaElement).type === 'textarea') ||
       (ev.target as HTMLInputElement).type === 'text'
     )
       return;
-    ev.preventDefault(); // Prevent the slash key from being inputted into input fields
+    // ev.preventDefault(); // Prevent the slash key from being inputted into input fields
     searchDialogOpen = true;
-    textInput.focus();
+    m.redraw();
   });
 
   return {
     view: ({ children, attrs }) => {
-      const { page, searchFilter, searchResults } = attrs.state;
+      const { page, searchFilter, searchResults } = attrs.cell.state;
       const curPage = routingSvc
         .getList()
         .filter((p) => p.id === page)
@@ -77,7 +76,6 @@ export const Layout: MeiosisComponent = () => {
                   m('li.tooltip.cursor-pointer', [
                     m(FlatButton, {
                       iconName: 'search',
-                      variant: { type: 'modal', modalId: 'search-dialog' },
                       onclick: () => {
                         searchDialogOpen = true;
                       },
@@ -89,7 +87,7 @@ export const Layout: MeiosisComponent = () => {
                     .filter(
                       (d) =>
                         d.id !== Pages.LANDING &&
-                        ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.state)) || isActive(d))
+                        ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.cell.state)) || isActive(d))
                     )
                     .map((d: Page) =>
                       m('li', { style: 'text-align:center', class: isActive(d) }, [
@@ -98,7 +96,7 @@ export const Layout: MeiosisComponent = () => {
                           {
                             title: d.title,
                             href: routingSvc.href(d.id),
-                            onclick: () => actions.changePage(attrs, d.id),
+                            onclick: () => actions.changePage(attrs.cell, d.id),
                           },
                           m(Icon, {
                             className: d.iconClass ? ` ${d.iconClass}` : '',
@@ -108,7 +106,7 @@ export const Layout: MeiosisComponent = () => {
                         ),
                       ])
                     ),
-                  m(ThemeToggle),
+                  m('li', m(ThemeToggle)),
                 ]),
               ])
             )
@@ -117,6 +115,7 @@ export const Layout: MeiosisComponent = () => {
             m(FlatButton, {
               iconName: 'menu',
               onclick: () => (sidenavOpen = !sidenavOpen),
+              className: 'left',
             }),
           ],
           m(
@@ -138,7 +137,7 @@ export const Layout: MeiosisComponent = () => {
               .filter(
                 (d) =>
                   d.id !== Pages.LANDING &&
-                  ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.state)) || isActive(d))
+                  ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.cell.state)) || isActive(d))
               )
               .map(
                 (d: Page) =>
@@ -165,33 +164,33 @@ export const Layout: MeiosisComponent = () => {
           ),
           m(
             '.container',
-            { style: 'padding-top: 5px' },
             children,
-            m(ModalPanel, {
-              id: 'search-dialog',
-              title: t('SEARCH'),
-              isOpen: searchDialogOpen,
-              onToggle: (open) => {
-                searchDialogOpen = open;
-              },
-              description: m('.modal-content.row', [
-                m(TextInput, {
-                  id: 'search',
-                  label: t('SEARCH'),
-                  iconName: 'search',
-                  initialValue: searchFilter,
-                  onchange: (v) => {
-                    actions.setSearchFilter(attrs, v);
-                  },
-                  oncreate: ({ dom }) => (textInput = dom.querySelector('input') as HTMLInputElement),
-                }),
-                searchFilter &&
-                  searchResults && [
-                    m('pre.col.s12', t('HITS', searchResults.length || 0)),
-                    searchResults.length > 0 && [],
-                  ],
-              ]),
-            })
+            searchDialogOpen &&
+              m(ModalPanel, {
+                id: 'search-dialog',
+                title: t('SEARCH'),
+                isOpen: searchDialogOpen,
+                onToggle: (open) => {
+                  searchDialogOpen = open;
+                },
+                description: m('.modal-content.row', [
+                  m(TextInput, {
+                    id: 'search',
+                    label: t('SEARCH'),
+                    iconName: 'search',
+                    initialValue: searchFilter,
+                    autofocus: true,
+                    onchange: (v) => {
+                      actions.setSearchFilter(attrs.cell, v);
+                    },
+                  }),
+                  searchFilter &&
+                    searchResults && [
+                      m('pre.col.s12', t('HITS', searchResults.length || 0)),
+                      searchResults.length > 0 && [],
+                    ],
+                ]),
+              })
           ),
         ]),
       ];

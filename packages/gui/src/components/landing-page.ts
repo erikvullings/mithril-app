@@ -8,7 +8,7 @@ import { actions } from '../services/meiosis';
 export const LandingPage: MeiosisComponent = () => {
   return {
     oninit: ({ attrs }) => {
-      actions.setPage(attrs, Pages.LANDING);
+      actions.setPage(attrs.cell, Pages.LANDING);
     },
     view: () => [
       m('div', { style: 'position: relative;' }, [

@@ -96,8 +96,7 @@ class RoutingService {
         c.hasNavBar === false
           ? {
               render: () => {
-                const cell = cells();
-                return m(c.component, { cell });
+                return m(c.component, { cell: cells() });
               },
             }
           : {
@@ -109,7 +108,7 @@ class RoutingService {
               //       },
               render: () => {
                 const cell = cells();
-                return m(Layout, { ...cell }, m(c.component, { ...cell }));
+                return m(Layout, { cell }, m(c.component, { cell }));
               },
             };
       return p;
