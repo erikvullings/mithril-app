@@ -4,7 +4,7 @@ import 'mithril-materialized/index.min.css';
 import './css/style.css';
 import { routingSvc } from './services/routing-service';
 import { LANGUAGE, SAVED } from './utils';
-import { Languages, i18n } from './services';
+import { type Languages, i18n } from './services';
 
 document.documentElement.setAttribute('lang', 'en');
 

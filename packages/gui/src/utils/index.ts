@@ -1,5 +1,5 @@
 import { padLeft } from 'mithril-materialized';
-import { Page, Pages } from '../models';
+import { type Page, Pages } from '../models';
 
 export const LANGUAGE = 'SG_LANGUAGE';
 export const SAVED = 'SG_MODEL_SAVED';

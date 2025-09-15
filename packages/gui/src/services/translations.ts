@@ -1,4 +1,4 @@
-import translate, { Options, Translate } from 'translate.js';
+import translate, { type Options, type Translate } from 'translate.js';
 import { plural_EN } from 'translate.js/pluralize';
 import { messages, messagesNL } from './lang';
 // import { I18n } from 'mithril-ui-form';

@@ -27,7 +27,7 @@ export const Layout: MeiosisComponent = () => {
 
   return {
     view: ({ children, attrs }) => {
-      const { page, searchFilter, searchResults } = attrs.cell.state;
+      const { page, searchFilter, searchResults } = attrs.state;
       const curPage = routingSvc
         .getList()
         .filter((p) => p.id === page)
@@ -87,7 +87,7 @@ export const Layout: MeiosisComponent = () => {
                     .filter(
                       (d) =>
                         d.id !== Pages.LANDING &&
-                        ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.cell.state)) || isActive(d))
+                        ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.state)) || isActive(d))
                     )
                     .map((d: Page) =>
                       m('li', { style: 'text-align:center', class: isActive(d) }, [
@@ -96,7 +96,7 @@ export const Layout: MeiosisComponent = () => {
                           {
                             title: d.title,
                             href: routingSvc.href(d.id),
-                            onclick: () => actions.changePage(attrs.cell, d.id),
+                            onclick: () => actions.changePage(attrs, d.id),
                           },
                           m(Icon, {
                             className: d.iconClass ? ` ${d.iconClass}` : '',
@@ -137,7 +137,7 @@ export const Layout: MeiosisComponent = () => {
               .filter(
                 (d) =>
                   d.id !== Pages.LANDING &&
-                  ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.cell.state)) || isActive(d))
+                  ((typeof d.visible === 'boolean' ? d.visible : d.visible(attrs.state)) || isActive(d))
               )
               .map(
                 (d: Page) =>
@@ -181,7 +181,7 @@ export const Layout: MeiosisComponent = () => {
                     initialValue: searchFilter,
                     autofocus: true,
                     onchange: (v) => {
-                      actions.setSearchFilter(attrs.cell, v);
+                      actions.setSearchFilter(attrs, v);
                     },
                   }),
                   searchFilter &&

@@ -1,6 +1,6 @@
-import { ComponentTypes } from 'mithril';
-import { State } from '../services';
-import { MeiosisCell } from 'meiosis-setup/types';
+import { type ComponentTypes } from 'mithril';
+import { type State } from '../services';
+import { type MeiosisCell } from 'meiosis-setup/types';
 
 type IconResolver = string | (() => string);
 
@@ -23,7 +23,7 @@ export interface Page {
   iconClass?: string;
   route: string;
   visible: boolean | VisibilityResolver;
-  component: ComponentTypes<{ cell: MeiosisCell<State>; [key: string]: any }>;
-  sidebar?: ComponentTypes<{ cell: MeiosisCell<State>; [key: string]: any }>;
+  component: ComponentTypes<MeiosisCell<State> & { [key: string]: any }>;
+  sidebar?: ComponentTypes<MeiosisCell<State> & { [key: string]: any }>;
   hasSidebar?: boolean;
 }

@@ -1,5 +1,5 @@
-import m, { RouteDefs } from 'mithril';
-import { Pages, Page } from '../models';
+import m, { type RouteDefs } from 'mithril';
+import { Pages, type Page } from '../models';
 import { Layout } from '../components/layout';
 import { AboutPage, HomePage, LandingPage, SettingsPage } from '../components';
 import { t } from './translations';
@@ -96,7 +96,7 @@ class RoutingService {
         c.hasNavBar === false
           ? {
               render: () => {
-                return m(c.component, { cell: cells() });
+                return m(c.component, { ...cells() });
               },
             }
           : {
@@ -108,7 +108,7 @@ class RoutingService {
               //       },
               render: () => {
                 const cell = cells();
-                return m(Layout, { cell }, m(c.component, { cell }));
+                return m(Layout, { ...cell }, m(c.component, { ...cell }));
               },
             };
       return p;

@@ -1,14 +1,14 @@
 import m from 'mithril';
 import { Icon } from 'mithril-materialized';
 import background from '../assets/background.jpg';
-import { MeiosisComponent } from '../services';
+import { type MeiosisComponent } from '../services';
 import { Pages } from '../models';
 import { actions } from '../services/meiosis';
 
 export const LandingPage: MeiosisComponent = () => {
   return {
     oninit: ({ attrs }) => {
-      actions.setPage(attrs.cell, Pages.LANDING);
+      actions.setPage(attrs, Pages.LANDING);
     },
     view: () => [
       m('div', { style: 'position: relative;' }, [

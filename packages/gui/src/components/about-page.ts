@@ -1,13 +1,13 @@
 import m from 'mithril';
 import { Select } from 'mithril-materialized';
 import { Pages } from '../models';
-import { MeiosisComponent, UserRole, actions, t } from '../services';
+import { type MeiosisComponent, type UserRole, actions, t } from '../services';
 
 export const AboutPage: MeiosisComponent = () => {
   return {
-    oninit: ({ attrs }) => actions.setPage(attrs.cell, Pages.ABOUT),
+    oninit: ({ attrs }) => actions.setPage(attrs, Pages.ABOUT),
     view: ({ attrs }) => {
-      const { role } = attrs.cell.state;
+      const { role } = attrs.state;
       const roleIcon = role === 'user' ? 'person' : role === 'editor' ? 'edit' : 'manage_accounts';
 
       return m('#about-page.row.about.page', [
@@ -20,7 +20,7 @@ export const AboutPage: MeiosisComponent = () => {
             { id: 'admin', label: t('ADMIN') },
           ],
           onchange: (role) => {
-            actions.setRole(attrs.cell, role[0]);
+            actions.setRole(attrs, role[0]);
           },
         }),
         m('.col.s12', 'About'),

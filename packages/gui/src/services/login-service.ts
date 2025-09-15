@@ -2,7 +2,7 @@
 import m from 'mithril';
 import { LandingPage } from '../components';
 import { Pages } from '../models';
-import { MeiosisComponent } from './meiosis';
+import { actions, type MeiosisComponent } from './meiosis';
 
 const userId = 'userid';
 const userRole = 'userrole';
@@ -78,17 +78,13 @@ Auth.login();
 
 export const Login: MeiosisComponent = () => {
   return {
-    oninit: ({
-      attrs: {
-        actions: { setPage },
-      },
-    }) => setPage(Pages.LOGIN),
-    view: ({ attrs: { state, actions } }) => {
-      const { loggedInUser } = state;
+    oninit: ({ attrs }) => actions.setPage(attrs, Pages.LOGIN),
+    view: ({ attrs }) => {
+      const { loggedInUser } = attrs.state;
       // const { login } = actions;
 
       if (loggedInUser) {
-        return m(LandingPage, { state, actions });
+        return m(LandingPage, { ...attrs });
       }
       return m('pre', JSON.stringify(loggedInUser, null, 2));
     },

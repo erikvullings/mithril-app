@@ -1,9 +1,9 @@
 import { meiosisSetup } from 'meiosis-setup';
-import { MeiosisCell, MeiosisConfig, Service } from 'meiosis-setup/types';
-import m, { FactoryComponent } from 'mithril';
+import type { MeiosisCell, MeiosisConfig, Service } from 'meiosis-setup/types';
+import m, { type FactoryComponent } from 'mithril';
 import { routingSvc } from '.';
-import { DataModel, Pages, Settings } from '../models';
-import { User, UserRole } from './login-service';
+import { type DataModel, Pages, type Settings } from '../models';
+import { type User, type UserRole } from './login-service';
 import { scrollToTop } from '../utils';
 
 export const EmptyDataModel = () =>
@@ -15,8 +15,8 @@ export const EmptyDataModel = () =>
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const MODEL_KEY = 'MITHRIL_APP_MODEL';
 const USER_ROLE = 'USER_ROLE';
-export const APP_TITLE = 'MITHRIL-APP';
-export const APP_TITLE_SHORT = 'MITHRIL-APP-SHORT';
+export const APP_TITLE = 'incommand';
+export const APP_TITLE_SHORT = 'incommand';
 
 export interface State {
   page: Pages;
@@ -28,21 +28,7 @@ export interface State {
   searchResults: any[];
 }
 
-export interface Actions {
-  setPage: (page: Pages, info?: string) => void;
-  changePage: (
-    page: Pages,
-    params?: Record<string, string | number | undefined>,
-    query?: Record<string, string | number | undefined>
-  ) => void;
-  saveModel: (ds: DataModel) => void;
-  saveSettings: (settings: Settings) => Promise<void>;
-  setRole: (role: UserRole) => void;
-  setSearchFilter: (searchFilter?: string) => Promise<void>;
-  login: () => void;
-}
-
-export type MeiosisComponent<A = {}> = FactoryComponent<{ cell: MeiosisCell<State> } & A>;
+export type MeiosisComponent<A = {}> = FactoryComponent<MeiosisCell<State> & A>;
 
 export const actions = {
   // addDucks: (cell, amount) => {
