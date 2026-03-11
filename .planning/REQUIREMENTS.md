@@ -15,9 +15,9 @@
 
 ### Settings Persistence
 
-- [ ] **SETT-01**: Settings changes are saved to localStorage persistently
-- [ ] **SETT-02**: Settings are loaded on application startup
-- [ ] **SETT-03**: Settings include language preference, theme, and user preferences
+- [x] **SETT-01**: Settings changes are saved to localStorage persistently
+- [x] **SETT-02**: Settings are loaded on application startup
+- [x] **SETT-03**: Settings include language preference, theme, and user preferences
 
 ### Search Functionality
 
@@ -60,9 +60,9 @@
 | CODE-03 | Phase 1 | Pending |
 | CODE-04 | Phase 1 | Pending |
 | CODE-05 | Phase 1 | Pending |
-| SETT-01 | Phase 2 | Pending |
-| SETT-02 | Phase 2 | Pending |
-| SETT-03 | Phase 2 | Pending |
+| SETT-01 | Phase 2 | Complete |
+| SETT-02 | Phase 2 | Complete |
+| SETT-03 | Phase 2 | Complete |
 | SRCH-01 | Phase 3 | Pending |
 | SRCH-02 | Phase 3 | Pending |
 | SRCH-03 | Phase 3 | Pending |
