@@ -27,7 +27,11 @@
   4. Debounce function has proper type signature that works with typed callbacks
   5. formatDate function includes proper date validation with clear error handling
 
-**Plans:** TBD
+**Plans:** 2 plans (01, 02)
+
+Plans:
+- [x] 01-PLAN.md — Define SearchResults type, replace any in meiosis.ts, clean local-ldb.ts
+- [x] 02-PLAN.md — Remove Auth from window, fix debounce type, add formatDate validation
 
 ### Phase 2: Settings Persistence
 
@@ -63,7 +67,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1 - Code Quality Cleanup | 0/0 | Not started | - |
+| 1 - Code Quality Cleanup | 2/2 | Plans defined | - |
 | 2 - Settings Persistence | 0/0 | Not started | - |
 | 3 - Search Functionality | 0/0 | Not started | - |
 
@@ -88,3 +92,4 @@
 ---
 
 *Roadmap created: 2026-03-11*
+*Last updated: 2026-03-11 - Phase 1 plans created*
