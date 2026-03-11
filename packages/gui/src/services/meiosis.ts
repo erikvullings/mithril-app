@@ -15,6 +15,7 @@ export const EmptyDataModel = () =>
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const MODEL_KEY = 'MITHRIL_APP_MODEL';
 const USER_ROLE = 'USER_ROLE';
+const SETTINGS_KEY = 'MITHRIL_APP_SETTINGS';
 export const APP_TITLE = 'incommand';
 export const APP_TITLE_SHORT = 'incommand';
 
@@ -93,6 +94,14 @@ export const setSearchResults: Service<State> = {
   },
 };
 
+export const settingsSaveService: Service<State> = {
+  onchange: (state) => state.settings,
+  run: (cell) => {
+    const state = cell.getState();
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.settings));
+  },
+};
+
 const config: MeiosisConfig<State> = {
   app: {
     initial: {
@@ -101,7 +110,7 @@ const config: MeiosisConfig<State> = {
       role: 'user',
       settings: {} as Settings,
     } as State,
-    services: [setSearchResults],
+    services: [setSearchResults, settingsSaveService],
   },
 };
 export const cells = meiosisSetup<State>(config);
