@@ -2,7 +2,7 @@ import { meiosisSetup } from 'meiosis-setup';
 import type { MeiosisCell, MeiosisConfig, Service } from 'meiosis-setup/types';
 import m, { type FactoryComponent } from 'mithril';
 import { routingSvc } from '.';
-import { type DataModel, Pages, type Settings } from '../models';
+import { type DataModel, Pages, type Settings, type SearchResults } from '../models';
 import { type User, type UserRole } from './login-service';
 import { scrollToTop } from '../utils';
 
@@ -25,7 +25,7 @@ export interface State {
   role: UserRole;
   settings: Settings;
   searchFilter: string;
-  searchResults: any[];
+  searchResults: SearchResults<unknown>;
 }
 
 export type MeiosisComponent<A = {}> = FactoryComponent<MeiosisCell<State> & A>;
