@@ -61,7 +61,6 @@ progress:
 | LdbOperation<T> type alias | Promise-based database operations | Clean async database API |
 | Phase 02 P02 | 15 minutes | 1 tasks | 1 files |
 | Phase 02 P01 | 4 minutes | 3 tasks | 2 files |
-| Phase 02 P02 | 15 minutes | 1 tasks | 1 files |
 
 ### Technical Debt Identified
 
