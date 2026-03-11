@@ -19,9 +19,12 @@ export const capitalize = (s?: string) => s && s.charAt(0).toUpperCase() + s.sli
  * @param timeout Timeout in milliseconds
  * @returns
  */
-export const debounce = (func: (...args: any) => void, timeout: number) => {
+export const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  timeout: number
+) => {
   let timer: number;
-  return (...args: any) => {
+  return (...args: Parameters<T>) => {
     clearTimeout(timer);
     timer = window.setTimeout(() => {
       func(...args);
