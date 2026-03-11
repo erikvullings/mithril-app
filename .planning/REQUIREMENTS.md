@@ -60,23 +60,28 @@
 | CODE-03 | Phase 1 | Pending |
 | CODE-04 | Phase 1 | Pending |
 | CODE-05 | Phase 1 | Pending |
-| SETT-01 | Phase 1 | Pending |
-| SETT-02 | Phase 1 | Pending |
-| SETT-03 | Phase 1 | Pending |
-| SRCH-01 | Phase 2 | Pending |
-| SRCH-02 | Phase 2 | Pending |
-| SRCH-03 | Phase 2 | Pending |
-| DOCS-01 | Phase 3 | Pending |
-| DOCS-02 | Phase 3 | Pending |
-| DOCS-03 | Phase 3 | Pending |
-| DOCS-04 | Phase 3 | Pending |
+| SETT-01 | Phase 2 | Pending |
+| SETT-02 | Phase 2 | Pending |
+| SETT-03 | Phase 2 | Pending |
+| SRCH-01 | Phase 3 | Pending |
+| SRCH-02 | Phase 3 | Pending |
+| SRCH-03 | Phase 3 | Pending |
+| DOCS-01 | v2 | Pending |
+| DOCS-02 | v2 | Pending |
+| DOCS-03 | v2 | Pending |
+| DOCS-04 | v2 | Pending |
+| UX-01 | v2 | Pending |
+| UX-02 | v2 | Pending |
+| UX-03 | v2 | Pending |
 
 **Coverage:**
-- v1 requirements: 8 total
-- Mapped to phases: 8
-- Unmapped: 0 ✓
+- v1 requirements: 11 total
+- Mapped to phases: 11
+- Unmapped: 0
+
+- v2 requirements: 7 total (deferred to future milestone)
 
 ---
 
 *Requirements defined: 2026-03-11*
-*Last updated: 2026-03-11 after initial definition*
+*Last updated: 2026-03-11 after phase 1 context captured*
