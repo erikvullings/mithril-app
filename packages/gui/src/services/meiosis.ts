@@ -124,12 +124,12 @@ const loadData = async () => {
   const role = (localStorage.getItem(USER_ROLE) || 'user') as UserRole;
   const ds = localStorage.getItem(MODEL_KEY);
   const model: DataModel = ds ? JSON.parse(ds) : EmptyDataModel();
-  // const settings = (await settingsSvc.loadList()).shift() || ({} as Settings);
+  const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') as Settings;
 
   cells().update({
     role,
     model: () => model,
-    // settings: () => settings,
+    settings: () => settings || ({} as Settings),
   });
 };
 loadData();
