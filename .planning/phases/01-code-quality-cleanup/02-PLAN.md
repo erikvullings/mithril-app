@@ -110,15 +110,15 @@ Preserve existing behavior and functionality.</action>
 <task type="auto">
   <name>Task 3: Add date validation to formatDate function</name>
   <files>/Users/erik.vullings/dev/mithril-app/packages/gui/src/utils/index.ts</files>
-  <action>Add input validation to formatDate function:
+  <action>Update formatDate function to accept string inputs in addition to Date/number:
 
-1. Check if input is valid Date/number/string
-2. Return empty string for invalid inputs
-3. Keep existing behavior for valid inputs (YYYY-MM-DD format)
+1. Update function signature to accept: `date: number | Date | string | undefined`
+2. Default to current date when input is undefined
+3. No explicit validation - let Date constructor handle invalid input (returns 'Invalid Date')
 
-Update function signature to accept: `date: number | Date | string | undefined`</action>
-  <verify>File compiles without errors, formatDate handles invalid inputs gracefully</verify>
-  <done>formatDate has proper validation with error handling</done>
+Keep existing behavior for valid Date/number inputs.</action>
+  <verify>File compiles without errors, formatDate handles undefined by defaulting to current date</verify>
+  <done>formatDate has proper type signature with validation handling</done>
 </task>
 
 </tasks>
