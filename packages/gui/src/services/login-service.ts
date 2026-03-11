@@ -74,7 +74,12 @@ export const Auth = {
 };
 
 Auth.login();
-(window as any).Auth = Auth;
+
+// Module exports for Auth helper functions
+export const getAuthUser = () => Auth.username;
+export const getAuthRoles = () => Auth.roles;
+export const isUserAuthenticated = () => Auth.isAuthenticated;
+export const checkRole = (role: UserRole) => Auth.roles.includes(role);
 
 export const Login: MeiosisComponent = () => {
   return {
