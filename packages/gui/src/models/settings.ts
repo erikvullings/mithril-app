@@ -8,4 +8,8 @@ export const setLanguage = async (locale = i18n.currentLocale) => {
   await i18n.loadAndSetLocale(locale);
 };
 
-export type Settings = {};
+export type Settings = {
+  language: string;
+  theme: 'light' | 'dark';
+  preferences: Record<string, unknown>;
+};
