@@ -64,7 +64,7 @@ export const actions = {
     cell.update({ model: () => model });
   },
   saveSettings: async (cell: MeiosisCell<State>, settings: Settings) => {
-    // await settingsSvc.save(settings);
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
     cell.update({
       settings: () => settings,
     });
