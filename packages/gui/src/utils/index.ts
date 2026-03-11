@@ -32,8 +32,16 @@ export const debounce = <T extends (...args: any[]) => void>(
   };
 };
 
-export const formatDate = (date: number | Date = new Date()) => {
+/**
+ * Format date to YYYY-MM-DD string.
+ * @param date Date, number (timestamp), or string (ISO format). Defaults to current date if undefined.
+ * @returns Formatted date string or empty string for invalid dates
+ */
+export const formatDate = (date?: number | Date | string): string => {
   const d = new Date(date);
+  if (isNaN(d.getTime())) {
+    return '';
+  }
   return `${d.getFullYear()}-${padLeft(d.getMonth() + 1)}-${padLeft(d.getDate())}`;
 };
 
