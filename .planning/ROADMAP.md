@@ -1,7 +1,7 @@
 # Roadmap: Mithril TypeScript Template
 
 **Version:** v1
-**Last Updated:** 2026-03-11
+**Last Updated:** 2026-03-12
 **Granularity:** coarse
 
 ## Phases
@@ -65,7 +65,12 @@ Plans:
   2. Search results update dynamically as the user types or modifies the query
   3. Empty search returns appropriate message (no items found) or displays all items when no filter is active
 
-**Plans:** TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Fix search service with filtering logic and update UI
+- [ ] 03-02-PLAN.md — Populate pages with real, translatable content
+- [ ] 03-03-PLAN.md — Add inline search to landing page and UI improvements
 
 ## Progress
 
@@ -73,7 +78,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1 - Code Quality Cleanup | 2/2 | Complete   | 2026-03-11 |
 | 2 - Settings Persistence | 2/2 | Complete   | 2026-03-11 |
-| 3 - Search Functionality | 0/0 | Not started | - |
+| 3 - Search Functionality | 0/3 | Not started | - |
 
 ## Requirements Coverage
 
@@ -96,4 +101,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-11 - Phase 2 Plan 02 complete (settings persistence service)*
+*Last updated: 2026-03-12 - Phase 3 plans created (3 plans for search functionality)*
