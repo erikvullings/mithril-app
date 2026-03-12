@@ -84,13 +84,93 @@ export const actions = {
   login: (_cell: MeiosisCell<State>) => {},
 };
 
+// Helper to retrieve model data from localStorage
+const getModelData = (): Record<string, any> => {
+  try {
+    const stored = localStorage.getItem(MODEL_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      // Return the model's data property if it exists, otherwise return the whole model
+      return parsed.data || parsed;
+    }
+  } catch (e) {
+    console.error('Error parsing model from localStorage:', e);
+  }
+  return {};
+};
+
+// Helper to search through model data for matching items
+const searchModelData = (filter: string): unknown[] => {
+  if (!filter || filter.trim() === '') {
+    return [];
+  }
+
+  const searchTerm = filter.toLowerCase().trim();
+  const modelData = getModelData();
+  const results: unknown[] = [];
+
+  // Helper function to check if a value matches the search term
+  const matchesSearch = (value: unknown): boolean => {
+    if (value === null || value === undefined) {
+      return false;
+    }
+    const str = String(value).toLowerCase();
+    return str.includes(searchTerm);
+  };
+
+  // Helper to recursively search through objects
+  const searchObject = (obj: unknown, path: string[] = []) => {
+    if (obj === null || obj === undefined) {
+      return;
+    }
+
+    if (Array.isArray(obj)) {
+      obj.forEach((item, index) => {
+        searchObject(item, [...path, `[${index}]`]);
+      });
+      return;
+    }
+
+    if (typeof obj === 'object') {
+      // Check if this object has searchable fields (title, description, content, type)
+      const searchableFields = ['title', 'description', 'content', 'type', 'name', 'authors'];
+      const hasSearchableField = searchableFields.some((field) => obj[field] !== undefined);
+
+      if (hasSearchableField) {
+        const matchFields = searchableFields.filter((field) =>
+          matchesSearch(obj[field])
+        );
+        if (matchFields.length > 0) {
+          results.push({
+            ...obj,
+            _matchedFields: matchFields,
+            _path: path.join('.'),
+          });
+        }
+      }
+
+      // Recursively search nested objects
+      Object.entries(obj).forEach(([key, value]) => {
+        // Skip metadata fields
+        if (!['version', 'lastUpdate'].includes(key)) {
+          searchObject(value, [...path, key]);
+        }
+      });
+    }
+  };
+
+  searchObject(modelData);
+  return results;
+};
+
 export const setSearchResults: Service<State> = {
   onchange: (state) => state.searchFilter,
   run: (cell) => {
     const state = cell.getState();
     const { searchFilter } = state;
     console.log(`Searching ${searchFilter}`);
-    cell.update({ searchResults: () => [] });
+    const results = searchFilter ? searchModelData(searchFilter) : [];
+    cell.update({ searchResults: () => results });
   },
 };
 
