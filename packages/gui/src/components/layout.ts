@@ -185,10 +185,38 @@ export const Layout: MeiosisComponent = () => {
                     },
                   }),
                   searchFilter &&
-                    searchResults && [
-                      m('pre.col.s12', t('HITS', searchResults.length || 0)),
-                      searchResults.length > 0 && [],
-                    ],
+                    m('div.col.s12', [
+                      m('div.clear-button', [
+                        m(FlatButton, {
+                          iconName: 'close',
+                          onclick: () => {
+                            actions.setSearchFilter(attrs, '');
+                            searchDialogOpen = false;
+                          },
+                          style: 'float: right;',
+                        }),
+                      ]),
+                      m('pre', t('HITS', searchResults.length || 0)),
+                      searchResults.length > 0
+                        ? m(
+                            'ul.collection',
+                            searchResults.map((result: any) =>
+                              m('li.collection-item', [
+                                m('strong', result.title || result.name || 'Unknown'),
+                                result.description &&
+                                  m('p.description', result.description),
+                                result.content &&
+                                  m('p.content', result.content),
+                                result._matchedFields &&
+                                  m(
+                                    'small.matched',
+                                    'Matched in: ' + result._matchedFields.join(', ')
+                                  ),
+                              ])
+                            )
+                          )
+                        : m('p', 'No results found'),
+                    ]),
                 ]),
               })
           ),
