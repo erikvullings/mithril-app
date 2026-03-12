@@ -10,7 +10,7 @@ export const EmptyDataModel = () =>
   ({
     version: 1,
     lastUpdate: Date.now(),
-  } as DataModel);
+  }) as DataModel;
 
 // const settingsSvc = restServiceFactory<Settings>('settings');
 const MODEL_KEY = 'MITHRIL_APP_MODEL';
@@ -119,7 +119,7 @@ const searchModelData = (filter: string): unknown[] => {
   };
 
   // Helper to recursively search through objects
-  const searchObject = (obj: unknown, path: string[] = []) => {
+  const searchObject = (obj: Record<string, any>, path: string[] = []) => {
     if (obj === null || obj === undefined) {
       return;
     }
@@ -137,9 +137,7 @@ const searchModelData = (filter: string): unknown[] => {
       const hasSearchableField = searchableFields.some((field) => obj[field] !== undefined);
 
       if (hasSearchableField) {
-        const matchFields = searchableFields.filter((field) =>
-          matchesSearch(obj[field])
-        );
+        const matchFields = searchableFields.filter((field) => matchesSearch(obj[field]));
         if (matchFields.length > 0) {
           results.push({
             ...obj,

@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Icon, TextInput, FlatButton } from 'mithril-materialized';
+import { Icon, TextInput } from 'mithril-materialized';
 import background from '../assets/background.jpg';
 import { type MeiosisComponent, t } from '../services';
 import { Pages } from '../models';
@@ -10,7 +10,7 @@ export const LandingPage: MeiosisComponent = () => {
     oninit: ({ attrs }) => {
       actions.setPage(attrs, Pages.LANDING);
     },
-    view: () => {
+    view: ({ attrs }) => {
       const { searchFilter, searchResults } = attrs.state;
 
       return [
@@ -87,15 +87,10 @@ export const LandingPage: MeiosisComponent = () => {
                         searchResults.map((result: any) =>
                           m('li.collection-item', [
                             m('strong', result.title || result.name || 'Unknown'),
-                            result.description &&
-                              m('p.description', result.description),
-                            result.content &&
-                              m('p.content', result.content),
+                            result.description && m('p.description', result.description),
+                            result.content && m('p.content', result.content),
                             result._matchedFields &&
-                              m(
-                                'small.matched',
-                                'Matched in: ' + result._matchedFields.join(', ')
-                              ),
+                              m('small.matched', 'Matched in: ' + result._matchedFields.join(', ')),
                           ])
                         )
                       )

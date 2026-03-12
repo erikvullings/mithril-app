@@ -64,10 +64,10 @@ export const messagesNL: typeof messages = {
   DOWNLOAD: 'Sla model op als JSON',
   PERMALINK: 'Maak link',
   ROLE: 'Rol',
+  LINK: 'Link',
   MODEL: 'Model',
   TITLE: 'Titel',
   AUTHORS: 'Auteurs',
-  LINK: 'Link',
   TYPE: 'Type',
   HITS: {
     n: '{n} Hits',
