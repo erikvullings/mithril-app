@@ -23,7 +23,19 @@ export const AboutPage: MeiosisComponent = () => {
             actions.setRole(attrs, role[0]);
           },
         }),
-        m('.col.s12', 'About'),
+        m('.col.s12.m8.offset-m2.l6.offset-l6', [
+          m('h2.primary-text', t('ABOUT.PAGE')),
+          m('p', t('ABOUT.INTRO')),
+          m('.divider'),
+          m('h4', t('ABOUT.SECTION1_TITLE')),
+          m('p', t('ABOUT.SECTION1')),
+          m('.divider'),
+          m('h4', t('ABOUT.SECTION2_TITLE')),
+          m('p', t('ABOUT.SECTION2')),
+          m('.divider'),
+          m('h4', t('ABOUT.SECTION3_TITLE')),
+          m('p', t('ABOUT.SECTION3')),
+        ]),
       ]);
     },
   };
