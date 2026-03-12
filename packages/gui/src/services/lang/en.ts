@@ -1,5 +1,16 @@
 export const messages = {
-  HOME: { TITLE: 'home', ROUTE: '/home' },
+  HOME: {
+    TITLE: 'home',
+    ROUTE: '/home',
+    PAGE: 'Welcome to Mithril App',
+    INTRO: 'A powerful single-page application framework built with Mithril.js and TypeScript',
+    SECTION1_TITLE: 'Features',
+    SECTION1: 'This application demonstrates modern web development with Mithril.js, featuring reactive state management, internationalization support, and a modular component architecture.',
+    SECTION2_TITLE: 'Technology Stack',
+    SECTION2: 'Built with TypeScript for type safety, Rspack for fast builds, and Materialize CSS for a responsive user interface. The Meiosis pattern ensures predictable state transitions.',
+    SECTION3_TITLE: 'Usage',
+    SECTION3: 'Navigate through the sections using the navigation bar. Use the search function to find content across all pages. Switch languages to experience the internationalization features.',
+  },
   ABOUT: { TITLE: 'About the app', ROUTE: '/about' },
   SETTINGS: { TITLE: 'Settings', ROUTE: '/settings' },
   LANDING: { TITLE: 'Introduction', ROUTE: '/' },

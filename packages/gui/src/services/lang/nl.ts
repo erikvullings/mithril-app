@@ -1,7 +1,18 @@
 import { messages } from '.';
 
 export const messagesNL: typeof messages = {
-  HOME: { TITLE: 'home', ROUTE: '/home' },
+  HOME: {
+    TITLE: 'home',
+    ROUTE: '/home',
+    PAGE: 'Welkom bij Mithril App',
+    INTRO: 'Een krachtige single-page applicatie gebouwd met Mithril.js en TypeScript',
+    SECTION1_TITLE: 'Functies',
+    SECTION1: 'Deze applicatie toont moderne webontwikkeling met Mithril.js, met reactieve statusbeheer, ondersteuning voor internationalisatie en een modulaire componentarchitectuur.',
+    SECTION2_TITLE: 'Technologie Stack',
+    SECTION2: 'Gebouwd met TypeScript voor typeveiligheid, Rspack voor snelle builds en Materialize CSS voor een responsieve gebruikersinterface. Het Meisis pattern zorgt voor voorspelbare statustransities.',
+    SECTION3_TITLE: 'Gebruik',
+    SECTION3: 'Navigeer door de secties met de navigatiebalk. Gebruik de zoekfunctie om content te vinden op alle pagina s. Wissel talen om de internationalisatiefuncties te ervaren.',
+  },
   ABOUT: { TITLE: 'over de app', ROUTE: '/over' },
   SETTINGS: { TITLE: 'Instellingen', ROUTE: '/instellingen' },
   LANDING: { TITLE: 'Introductie', ROUTE: '/' },
