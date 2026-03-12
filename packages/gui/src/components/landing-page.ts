@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Icon, TextInput } from 'mithril-materialized';
+import { Icon, TextInput, FlatButton } from 'mithril-materialized';
 import background from '../assets/background.jpg';
 import { type MeiosisComponent, t } from '../services';
 import { Pages } from '../models';
@@ -65,6 +65,15 @@ export const LandingPage: MeiosisComponent = () => {
                   onchange: (value) => {
                     actions.setSearchFilter(attrs, value);
                   },
+                  actions: [
+                    {
+                      iconName: 'close',
+                      onclick: () => {
+                        actions.setSearchFilter(attrs, '');
+                      },
+                      tooltip: t('CLEAR_SEARCH'),
+                    },
+                  ],
                 }),
               ]),
             ]),
@@ -90,7 +99,7 @@ export const LandingPage: MeiosisComponent = () => {
                           ])
                         )
                       )
-                    : m('p', 'No results found'),
+                    : m('p', t('NO_RESULTS')),
                 ]),
               ]),
           ]),

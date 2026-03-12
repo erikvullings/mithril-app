@@ -25,7 +25,18 @@ export const messagesNL: typeof messages = {
     SECTION3_TITLE: 'Ontwikkelingsdoelstellingen',
     SECTION3: 'Het doel van dit project is om een schone, onderhouwbare codebase te bieden die moderne webontwikkelings patronen toont met Mithril.js als alternatief voor zwaardere frameworks.',
   },
-  SETTINGS: { TITLE: 'Instellingen', ROUTE: '/instellingen' },
+  SETTINGS: {
+    TITLE: 'Instellingen',
+    ROUTE: '/instellingen',
+    PAGE: 'Applicatie Instellingen',
+    INTRO: 'Configureer uw applicatievoorkeuren en taalinstellingen',
+    SECTION1_TITLE: 'Taal Voorkeuren',
+    SECTION1: 'Wissel tussen Engels en Nederlands. Uw voorkeur wordt opgeslagen in localStorage en blijft geldig voor alle sessies.',
+    SECTION2_TITLE: 'Thema Instellingen',
+    SECTION2: 'Pas de visuele opmaak van de applicatie aan. Pas kleuren, lettertypen en lay-outvoorkeuren aan om ze aan uw werkstroom te matchen.',
+    SECTION3_TITLE: 'Voorkeuren',
+    SECTION3: 'Beheer applicatiegedrag inclusief standaardweergaven, data persistentie opties en meldingsinstellingen.',
+  },
   LANDING: { TITLE: 'Introductie', ROUTE: '/' },
   USER: 'Gebruiker',
   EDITOR: 'Editor',
@@ -61,4 +72,6 @@ export const messagesNL: typeof messages = {
   HITS: {
     n: '{n} Hits',
   },
+  NO_RESULTS: 'Geen resultaten gevonden',
+  CLEAR_SEARCH: 'Zoekopdracht wissen',
 };

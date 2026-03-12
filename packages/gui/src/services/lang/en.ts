@@ -23,7 +23,18 @@ export const messages = {
     SECTION3_TITLE: 'Development Goals',
     SECTION3: 'The goal of this project is to provide a clean, maintainable codebase that showcases modern web development patterns with Mithril.js as an alternative to heavier frameworks.',
   },
-  SETTINGS: { TITLE: 'Settings', ROUTE: '/settings' },
+  SETTINGS: {
+    TITLE: 'Settings',
+    ROUTE: '/settings',
+    PAGE: 'Application Settings',
+    INTRO: 'Configure your application preferences and language settings',
+    SECTION1_TITLE: 'Language Preferences',
+    SECTION1: 'Switch between English and Dutch. Your preference is saved to localStorage and persists across sessions.',
+    SECTION2_TITLE: 'Theme Settings',
+    SECTION2: 'Customize the visual appearance of the application. Adjust colors, fonts, and layout preferences to match your workflow.',
+    SECTION3_TITLE: 'Preferences',
+    SECTION3: 'Manage application behavior including default views, data persistence options, and notification settings.',
+  },
   LANDING: { TITLE: 'Introduction', ROUTE: '/' },
   USER: 'User',
   EDITOR: 'Editor',
@@ -59,4 +70,6 @@ export const messages = {
   HITS: {
     n: '{n} Hits',
   },
+  NO_RESULTS: 'No results found',
+  CLEAR_SEARCH: 'Clear search',
 };
