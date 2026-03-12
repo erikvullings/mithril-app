@@ -69,8 +69,8 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Fix search service with filtering logic and update UI
-- [ ] 03-02-PLAN.md — Populate pages with real, translatable content
-- [ ] 03-03-PLAN.md — Add inline search to landing page and UI improvements
+- [x] 03-02-PLAN.md — Populate pages with real, translatable content
+- [x] 03-03-PLAN.md — Add inline search to landing page and UI improvements
 
 ## Progress
 
@@ -78,7 +78,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1 - Code Quality Cleanup | 2/2 | Complete   | 2026-03-11 |
 | 2 - Settings Persistence | 2/2 | Complete   | 2026-03-11 |
-| 3 - Search Functionality | 1/3 | In Progress | 2026-03-12 |
+| 3 - Search Functionality | 3/3 | Complete   | 2026-03-12 |
 
 ## Requirements Coverage
 
@@ -101,4 +101,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-03-11*
-*Last updated: 2026-03-12 - Phase 3 Plan 01 complete (search filtering with recursive localStorage traversal, results display with clear button)*
+*Last updated: 2026-03-12 - Phase 3 complete (all 3 plans: search filtering, page content, landing page inline search)*
