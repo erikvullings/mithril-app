@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Pages } from '../models';
-import { actions, type MeiosisComponent, t } from '../services';
+import { Pages } from '../models/index';
+import { actions, type MeiosisComponent, t } from '../services/index';
 
 export const SettingsPage: MeiosisComponent = () => {
   return {

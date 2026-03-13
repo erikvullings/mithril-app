@@ -16,11 +16,13 @@
   "author": "Erik Vullings <erik.vullings@tno.nl> (http://www.tno.nl)",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^25.5.0",
     "pnpm": "^10.32.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@parcel/watcher"
+      "@parcel/watcher",
+      "esbuild"
     ]
   }
 }

@@ -16,8 +16,9 @@ export const EmptyDataModel = () =>
 const MODEL_KEY = 'MITHRIL_APP_MODEL';
 const USER_ROLE = 'USER_ROLE';
 const SETTINGS_KEY = 'MITHRIL_APP_SETTINGS';
-export const APP_TITLE = 'incommand';
-export const APP_TITLE_SHORT = 'incommand';
+// Vite injects import.meta.env.APP_TITLE from .env files at build time
+export const APP_TITLE = import.meta.env.APP_TITLE || 'incommand';
+export const APP_TITLE_SHORT = import.meta.env.APP_TITLE_SHORT || 'incommand';
 
 export interface State {
   page: Pages;

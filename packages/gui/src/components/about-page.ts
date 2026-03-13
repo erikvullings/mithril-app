@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Select } from 'mithril-materialized';
-import { Pages } from '../models';
-import { type MeiosisComponent, type UserRole, actions, t } from '../services';
+import { Pages } from '../models/index';
+import { type MeiosisComponent, type UserRole, actions, t } from '../services/index';
 
 export const AboutPage: MeiosisComponent = () => {
   return {
